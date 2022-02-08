@@ -1,0 +1,40 @@
+<f:layout name="Module"/>
+<f:section name="Content">
+    <div class="neos-row-fluid">
+        <div class="neos-span12">
+            <h2>Job Queues</h2>
+        </div>
+        <table class="neos-table">
+            <thead>
+            <tr>
+                <th>Queue</th>
+                <th>Jobs reserved / ready</th>
+                <th>Jobs failed</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <f:for each="{queues}" as="queue">
+                <tr>
+                    <td>
+                        {queue.name}
+                    </td>
+                    <td>
+                        <f:render partial="JobsCount" arguments="{amount: queue.reserved}" /> / <f:render partial="JobsCount" arguments="{amount: queue.ready}" />
+                    </td>
+                    <td>
+                        <f:render partial="FailedJobsCount" arguments="{amount: queue.failed}" />
+                    </td>
+                    <td class="neos-action">
+                        <div class="neos-pull-right">
+                            <f:link.action action="show" arguments="{queueName: queue.name}" class="neos-button" title="Show details">
+                                <i class="fas fa-eye icon-white"></i>
+                            </f:link.action>
+                        </div>
+                    </td>
+                </tr>
+            </f:for>
+            </tbody>
+        </table>
+    </div>
+</f:section>

@@ -1,0 +1,30 @@
+privilegeTargets:
+  'Neos\Neos\Security\Authorization\Privilege\ModulePrivilege':
+    'Wwwision.Neos.JobQueueModule:Module':
+      matcher: 'administration/jobs'
+
+  'Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
+    'Wwwision.Neos.JobQueueModule:Queues.Any.Access':
+      matcher: 'method(Wwwision\Neos\JobQueueModule\Controller\QueueController->(index|show)Action())'
+    'Wwwision.Neos.JobQueueModule:Queues.Specific.Access':
+      matcher: 'method(Wwwision\Neos\JobQueueModule\Controller\QueueController->(index|show)Action(queueName == "{parameters.queue}"}))'
+      parameters:
+        queue:
+          className: 'Wwwision\Neos\JobQueueModule\Security\JobQueuePrivilegeParameter'
+    'Wwwision.Neos.JobQueueModule:Queues.Any.FinishMessages':
+      matcher: 'method(Wwwision\Neos\JobQueueModule\Controller\QueueController->finishMessageAction())'
+    'Wwwision.Neos.JobQueueModule:Queues.Specific.FinishMessages':
+      matcher: 'method(Wwwision\Neos\JobQueueModule\Controller\QueueController->finishMessageAction(queueName == "{parameters.queue}"}))'
+      parameters:
+        queue:
+          className: 'Wwwision\Neos\JobQueueModule\Security\JobQueuePrivilegeParameter'
+
+roles:
+  'Neos.Neos:Administrator':
+    privileges:
+      - privilegeTarget: 'Wwwision.Neos.JobQueueModule:Module'
+        permission: GRANT
+      - privilegeTarget: 'Wwwision.Neos.JobQueueModule:Queues.Any.Access'
+        permission: GRANT
+      - privilegeTarget: 'Wwwision.Neos.JobQueueModule:Queues.Any.FinishMessages'
+        permission: GRANT

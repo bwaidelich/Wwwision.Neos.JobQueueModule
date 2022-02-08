@@ -1,0 +1,16 @@
+Neos:
+  Neos:
+    modules:
+      'administration':
+        submodules:
+          'jobs':
+            label: 'JobQueue jobs'
+            controller: 'Wwwision\Neos\JobQueueModule\Controller\QueueController'
+            description: 'Inspect and manage pending JobQueue messages'
+            icon: 'fas fa-clipboard-list'
+            additionalResources:
+              styleSheets:
+                - 'resource://Wwwision.Neos.JobQueueModule/Public/Scripts/module.css'
+              javaScripts:
+                - 'resource://Wwwision.Neos.JobQueueModule/Public/Scripts/timeago.min.js'
+                - 'resource://Wwwision.Neos.JobQueueModule/Public/Scripts/module.js'

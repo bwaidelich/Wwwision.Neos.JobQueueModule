@@ -1,0 +1,24 @@
+{
+    "description": "Neos Backend Module for the Flowpack.JobQueue packages",
+    "type": "neos-package",
+    "name": "wwwision/neos-jobqueuemodule",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.4",
+        "neos/neos": "^7.0",
+        "flowpack/jobqueue-common": "^3.2"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wwwision\\Neos\\JobQueueModule\\": "Classes/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Wwwision.Neos.JobQueueModule"
+        }
+    }
+}

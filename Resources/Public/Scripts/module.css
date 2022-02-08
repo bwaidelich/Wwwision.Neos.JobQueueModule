@@ -1,0 +1,19 @@
+.neos h2 {
+    font-size: 18px;
+    margin: 0 0 1.5em 0;
+}
+.neos h3 {
+    font-size: 16px;
+    margin: 0 0 1.5em 0;
+}
+.neos pre {
+    background: #999;
+    margin: 1em;
+    padding: 1em;
+    color: black;
+    word-wrap: anywhere;
+    white-space: break-spaces;
+    line-height: 1.2em;
+    max-height: 8em;
+    overflow: auto;
+}

@@ -1,0 +1,83 @@
+<f:layout name="Module"/>
+<f:section name="Content">
+    <div class="neos-row-fluid">
+        <div class="neos-span12">
+            <h2>Job Queue &quot;{queue.name}&quot;</h2>
+        </div>
+        <table class="neos-table">
+            <tr>
+                <td style="width: 10em">Jobs reserved</td>
+                <td><f:render partial="JobsCount" arguments="{amount: queue.reserved}" /></td>
+            </tr>
+            <tr>
+                <td>Jobs ready</td>
+                <td><f:render partial="JobsCount" arguments="{amount: queue.ready}" /></td>
+            </tr>
+            <tr>
+                <td>Jobs failed</td>
+                <td><f:render partial="FailedJobsCount" arguments="{amount: queue.failed}" /></td>
+            </tr>
+        </table>
+        <h3>Next ready Messages (max. 10):</h3>
+        <f:if condition="{messages}" else="<p><i>There are no pending jobs currently</i></p>">
+            <table class="neos-table">
+                <thead>
+                <tr>
+                    <th style="width: 3em">ID</th>
+                    <th style="width: 2em">#&nbsp;Releases</th>
+                    <th style="width: 18em">Job</th>
+                    <th>Job Payload</th>
+                    <th style="width: 1em"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <f:for each="{messages}" as="message">
+                    <tr class="">
+                        <td>
+                            {message.identifier}
+                        </td>
+                        <td>
+                            {message.numberOfReleases}
+                        </td>
+                        <td>
+                            {message.jobClassName}
+                        </td>
+                        <td style="word-wrap: anywhere">
+                            {message.jobLabel}
+                        </td>
+                        <td class="neos-priority1 neos-aRight">
+                            <i class="fold-toggle fas fa-chevron-down icon-white" data-toggle="fold-{message.identifier}"></i>
+                        </td>
+                    </tr>
+                    <tr class="fold-{message.identifier} neos-hide">
+                        <td colspan="4">
+                            <pre>{message.payload}</pre>
+
+                        </td>
+                        <td class="neos-action">
+                            <div class="neos-pull-right">
+                                <f:security.ifAccess privilegeTarget="Wwwision.Neos.JobQueueModule:Queues.Any.FinishMessages">
+                                    <f:then>
+                                        <f:render section="FinishMessageForm" arguments="{queueName: queue.name, messageId: message.identifier}" />
+                                    </f:then>
+                                    <f:else>
+                                        <f:security.ifAccess privilegeTarget="Wwwision.Neos.JobQueueModule:Queues.Specific.FinishMessages" parameters="{queue: queue.name}">
+                                            <f:render section="FinishMessageForm" arguments="{queueName: queue.name, messageId: message.identifier}" />
+                                        </f:security.ifAccess>
+                                    </f:else>
+                                </f:security.ifAccess>
+                            </div>
+                        </td>
+                    </tr>
+                </f:for>
+                </tbody>
+            </table>
+        </f:if>
+    </div>
+</f:section>
+
+<f:section name="FinishMessageForm">
+    <f:form action="finishMessage" arguments="{queueName: queueName, messageId: messageId}" additionalAttributes="{style: 'display: inline'}">
+        <f:form.button class="neos-button neos-button-danger" title="Remove (finish) this message"><i class="fas fa-trash icon-white"></i></f:form.button>
+    </f:form>
+</f:section>
