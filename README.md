@@ -96,6 +96,11 @@ roles:
         permission: GRANT
 ```
 
+## Acknowledgements
+
+The development of this package was partly sponsored by [brandung GmbH](https://www.brandung.de).
+Thank you for supporting Open Source development!
+
 ## Contribution
 
 Contributions in the form of issues or pull requests are highly appreciated.
