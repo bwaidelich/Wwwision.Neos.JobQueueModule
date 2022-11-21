@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "php": ">=7.4",
-        "neos/neos": "^7.0",
+        "neos/neos": "^7.0 || ^8.0 || dev-master",
         "flowpack/jobqueue-common": "^3.2"
     },
     "require-dev": {
